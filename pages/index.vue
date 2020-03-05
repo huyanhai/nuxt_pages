@@ -1,28 +1,56 @@
 <template>
-  <div class="container">
-    123{{ $store.state.count }}
-
-    <button @click="add">添加</button>
-    <button @click="dec">减少</button>
+  <div class="index-container page">
+    <div class="index-banner">
+      <div class="banner container">
+        <Banner :banners="banners" />
+      </div>
+    </div>
+    <Recommend :recommendList="recommendList" :menus="menus" />
+    <div class="ad">
+      <a href="">
+        <img src="https://reviveimg.hellorf.com/www/images/caf14458a9a7efd25ea6d1cdf101dd63.jpg" />
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue";
+import Banner from "../components/Banner";
+import Recommend from "../components/Recommend";
 import axios from "axios";
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      banners: [
+        {
+          src:
+            "https://img.zcool.cn/community/01d7e35e4a53b1a80120a895dbc69c.jpg@1380w"
+        },
+        {
+          src:
+            "https://img.zcool.cn/community/0175085e472084a801216518a0ae26.png@1380w"
+        },
+        {
+          src:
+            "https://img.zcool.cn/community/0110635e472066a8012165182898c2.png"
+        }
+      ],
+      recommendList: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      menus: [
+        {
+          name: "首页推荐",
+          active: true
+        },
+        {
+          name: "最新发布",
+          active: false
+        }
+      ]
+    };
   },
-  created() {
-    axios
-      .get("/api/lists")
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  components: {
+    Banner,
+    Recommend
   },
   methods: {
     add() {
@@ -35,35 +63,18 @@ export default {
 };
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+<style lang="scss">
+.index-container {
+  background: $color-fff;
+  .index-banner {
+    padding: 0 30px;
+  }
+  .banner {
+    max-width: 1220px;
+    margin: 20px auto !important;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 290px;
+  }
 }
 </style>

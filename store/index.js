@@ -1,19 +1,31 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import createPersistedState from "vuex-persistedstate";
-import Cookies from "js-cookie";
+import VueCookies from "vue-cookies";
 
 Vue.use(Vuex);
+Vue.use(VueCookies);
 
 const store = () =>
-  new Vuex.Store({
-    state: {
-      count: 100
-    },
-    mutations: {
-      increment: state => state.count++,
-      decrement: state => state.count--
-    }
-  });
+    new Vuex.Store({
+        state: {
+            token: ""
+        },
+        mutations: {
+            set_token(state, token) {
+                state.token = token;
+                $cookies.set("token", token);
+            },
+            del_token(state) {
+                state.token = "";
+                $cookies.remove("token");
+            }
+        },
+        actions: {
+            nuxtServerInit({ commit }, { req }) {
+                let cookie = req.headers.cookie;
+                console.log(localStorage);
+            }
+        }
+    });
 
 export default store;

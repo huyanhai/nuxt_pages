@@ -12,6 +12,10 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
+import nuxt_plugin_axios_4a89971a from 'nuxt_plugin_axios_4a89971a' // Source: .\\axios.js (mode: 'all')
+import nuxt_plugin_ElementUI_2318970e from 'nuxt_plugin_ElementUI_2318970e' // Source: ..\\plugins\\ElementUI (mode: 'all')
+import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
+
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
 
@@ -125,6 +129,39 @@ async function createApp (ssrContext) {
     ssrContext
   })
 
+  const inject = function (key, value) {
+    if (!key) {
+      throw new Error('inject(key, value) has no key provided')
+    }
+    if (value === undefined) {
+      throw new Error('inject(key, value) has no value provided')
+    }
+
+    key = '$' + key
+    // Add into app
+    app[key] = value
+
+    // Add into store
+    store[key] = app[key]
+
+    // Check if plugin not already installed
+    const installKey = '__nuxt_' + key + '_installed__'
+    if (Vue[installKey]) {
+      return
+    }
+    Vue[installKey] = true
+    // Call Vue.use() to install the plugin into vm
+    Vue.use(() => {
+      if (!Object.prototype.hasOwnProperty.call(Vue, key)) {
+        Object.defineProperty(Vue.prototype, key, {
+          get () {
+            return this.$root.$options[key]
+          }
+        })
+      }
+    })
+  }
+
   if (process.client) {
     // Replace store state before plugins execution
     if (window.__NUXT__ && window.__NUXT__.state) {
@@ -133,6 +170,18 @@ async function createApp (ssrContext) {
   }
 
   // Plugin execution
+
+  if (typeof nuxt_plugin_axios_4a89971a === 'function') {
+    await nuxt_plugin_axios_4a89971a(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_ElementUI_2318970e === 'function') {
+    await nuxt_plugin_ElementUI_2318970e(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_axios_3566aa80 === 'function') {
+    await nuxt_plugin_axios_3566aa80(app.context, inject)
+  }
 
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {

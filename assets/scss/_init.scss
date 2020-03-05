@@ -1,0 +1,55 @@
+html,
+body {
+    height: 100%;
+    min-width: 1280px;
+    font: 14px/1.5 "PingFang SC", "Lantinghei SC", "Microsoft YaHei", "HanHei SC", "Helvetica Neue", "Open Sans", Arial, "Hiragino Sans GB", "微软雅黑", STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif;
+    background: #f4f4f4;
+    >div,
+    >div>div {
+        height: 100%;
+    }
+}
+
+a {
+    color: $text-dark;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    &:hover {
+        color: $brand-orange;
+    }
+}
+
+.ad {
+    padding: 0 30px;
+    text-align: center;
+    background: $text-lgary;
+    overflow: hidden;
+    img {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1200px;
+        display: block;
+        border-radius: 5px;
+        margin-bottom: 30px;
+    }
+}
+
+.ui--btn {
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 4px;
+    background: $brand-orange;
+    color: $text-ddark;
+    font-size: 14px;
+    &:hover {
+        color: $text-ddark;
+        background: darken($color: $brand-orange, $amount: 2);
+    }
+}
+
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+}

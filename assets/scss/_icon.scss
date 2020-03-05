@@ -1,0 +1,25 @@
+.icon {
+    &.icon-more {
+        background: url("~assets/images/nav-more.svg") no-repeat center;
+        width: 20px;
+        display: block;
+    }
+    &.icon-view {
+        background: url("~assets/images/icon-view.svg") no-repeat center;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+    }
+    &.icon-comment {
+        background: url("~assets/images/icon-comment.svg") no-repeat center;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+    }
+    &.icon-like {
+        background: url("~assets/images/icon-like.svg") no-repeat center;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+    }
+}
